@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # El subdominio en Hostinger tiene como raíz la carpeta del proyecto.
+    # Laravel solo atiende desde public/; sin esto, /api/* no llega al framework
+    # y el 404 de Hostinger sale sin Access-Control-Allow-Origin.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
