@@ -53,7 +53,7 @@ class DebateService
             return null;
         }
 
-        return $file->store($directory, 'public');
+        return $file->store($directory, 'uploads');
     }
 
     private function deletePublicFile(?string $path): void
@@ -62,6 +62,7 @@ class DebateService
             return;
         }
 
+        Storage::disk('uploads')->delete($path);
         Storage::disk('public')->delete($path);
     }
 }

@@ -26,7 +26,7 @@ class DebateApiTest extends TestCase
 
     public function test_admin_can_create_debate_with_image(): void
     {
-        Storage::fake('public');
+        Storage::fake('uploads');
         $user = User::factory()->admin()->create();
         Sanctum::actingAs($user);
 
@@ -50,7 +50,8 @@ class DebateApiTest extends TestCase
 
         $path = Debate::query()->first()->image_path;
         $this->assertNotNull($path);
-        Storage::disk('public')->assertExists($path);
+        Storage::disk('uploads')->assertExists($path);
+        $response->assertJsonPath('data.image_url', Storage::disk('uploads')->url($path));
     }
 
     public function test_guest_cannot_create_debate(): void

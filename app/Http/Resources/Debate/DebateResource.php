@@ -24,11 +24,11 @@ class DebateResource extends JsonResource
             ]),
             'status' => $this->status instanceof \BackedEnum ? $this->status->value : $this->status,
             'image_url' => $this->image_path
-                ? Storage::disk('public')->url($this->image_path)
+                ? Storage::disk('uploads')->url($this->image_path)
                 : null,
             'image_credit' => $this->image_credit,
             'video_file_url' => $this->video_path
-                ? Storage::disk('public')->url($this->video_path)
+                ? Storage::disk('uploads')->url($this->video_path)
                 : null,
             'video_url' => $this->video_url,
             'sources' => $this->sources ?? [],

@@ -129,7 +129,7 @@ class CurrentNewsSeeder extends Seeder
         }
 
         $path = 'debates/images/'.$filename;
-        Storage::disk('public')->put($path, file_get_contents($source));
+        Storage::disk('uploads')->put($path, file_get_contents($source));
 
         return $path;
     }
