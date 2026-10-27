@@ -113,6 +113,7 @@ class AdminApiTest extends TestCase
             'email' => 'otro@example.com',
             'password' => 'password123',
             'department' => 'Cochabamba',
+            'privacy_accepted' => true,
             'is_admin' => true,
         ])->assertCreated()
             ->assertJsonPath('user.is_admin', false);

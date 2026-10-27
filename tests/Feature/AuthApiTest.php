@@ -22,6 +22,7 @@ class AuthApiTest extends TestCase
             'email' => 'militante1@example.com',
             'password' => 'password123',
             'department' => 'La Paz',
+            'privacy_accepted' => true,
         ]);
 
         $response->assertCreated()
@@ -49,7 +50,15 @@ class AuthApiTest extends TestCase
             'email' => 'sindepto@example.com',
             'password' => 'password123',
         ])->assertUnprocessable()
-            ->assertJsonValidationErrors(['department']);
+            ->assertJsonValidationErrors(['department', 'privacy_accepted']);
+
+        $this->postJson('/api/v1/register', [
+            'nick' => 'sinprivacidad',
+            'email' => 'sinprivacidad@example.com',
+            'password' => 'password123',
+            'department' => 'La Paz',
+        ])->assertUnprocessable()
+            ->assertJsonValidationErrors(['privacy_accepted']);
     }
 
     public function test_user_can_update_department(): void

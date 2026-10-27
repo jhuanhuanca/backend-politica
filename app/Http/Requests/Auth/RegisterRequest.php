@@ -24,6 +24,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', Password::min(8)],
             'department' => ['required', 'string', Rule::in(Bolivia::DEPARTMENTS)],
+            'privacy_accepted' => ['accepted'],
         ];
     }
 
@@ -35,6 +36,7 @@ class RegisterRequest extends FormRequest
         return [
             'department.required' => 'Elegí tu departamento.',
             'department.in' => 'Elegí un departamento válido.',
+            'privacy_accepted.accepted' => 'Tenés que aceptar las políticas de privacidad y el tratamiento de tus datos.',
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ad\AdController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Debate\DebateController;
 use App\Http\Controllers\Message\MessageController;
@@ -20,6 +21,7 @@ Route::prefix('v1')->group(function (): void {
     Route::get('debates/{debate}/messages', [MessageController::class, 'index']);
     Route::get('vote-topics', [VoteTopicController::class, 'index']);
     Route::get('vote-topics/{voteTopic}', [VoteTopicController::class, 'show']);
+    Route::get('ads', [AdController::class, 'index']);
 
     Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('logout', [AuthController::class, 'logout']);
@@ -56,6 +58,11 @@ Route::prefix('v1')->group(function (): void {
             Route::get('admin/suggestions', [\App\Http\Controllers\Admin\SuggestionController::class, 'index']);
             Route::post('admin/suggestions/{suggestion}/publish', [\App\Http\Controllers\Admin\SuggestionController::class, 'publish']);
             Route::post('admin/suggestions/{suggestion}/reject', [\App\Http\Controllers\Admin\SuggestionController::class, 'reject']);
+
+            Route::get('admin/ads', [\App\Http\Controllers\Admin\AdController::class, 'index']);
+            Route::post('admin/ads', [\App\Http\Controllers\Admin\AdController::class, 'store']);
+            Route::match(['put', 'patch', 'post'], 'admin/ads/{ad}', [\App\Http\Controllers\Admin\AdController::class, 'update']);
+            Route::delete('admin/ads/{ad}', [\App\Http\Controllers\Admin\AdController::class, 'destroy']);
         });
     });
 });
